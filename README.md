@@ -19,11 +19,6 @@ The `MPW` class implements `static calculateKey(name, password)` which is an imp
 
 `MPW` finally implements `static test()` which provides a simple, non-rigorous test to ensure correct functionality of the algorithm.
 
-Demo
-----
-
-A working demo can be found in the [gh-pages branch](https://github.com/tmthrgd/mpw-js/tree/gh-pages) and at <https://tmthrgd.github.io/mpw-js/>.
-
 Dependencies
 ------------
 
