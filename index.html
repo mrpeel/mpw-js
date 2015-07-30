@@ -2,43 +2,55 @@
 <html lang=en>
 <head>
 	<meta charset=utf-8>
-	<meta http-equiv=Content-Security-Policy content="default-src 'none'; style-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src https://i.creativecommons.org https://licensebuttons.net; child-src 'self'">
+	<!--<meta http-equiv=Content-Security-Policy content="default-src 'none'; style-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src https://i.creativecommons.org https://licensebuttons.net; child-src 'self'">
 	<!-- by Tom Thorogood <me@tomthorogood.co.uk> -->
 	<!-- This work is licensed under the Creative Commons Attribution
 		 4.0 International License. To view a copy of this license,
 		 visit http://creativecommons.org/licenses/by/4.0/ or see LICENSE. -->
-	<title>Master Password</title>
+	<title>PassGen</title>
 	<link rel=stylesheet href=style.css>
 </head>
 <body>
 	<header class=page-header>
-		<h1>Master Password &ndash; <code>mpw-js</code></h1>
+		<h1>PassGen - Password Recall</h1>
 	</header>
 	
 	<main class=page-body>	
 		<div class=user>
 			<h2>User</h2>
+			            
+            <p><label>Given name: <input disabled name=given-name required placeholder="John"></label></p>
+            
+            <p><label>Family name: <input disabled name=family-name required placeholder="Smith"></label></p>
 			
-			<p><label>Full name: <input disabled name=fullname required placeholder="John Smith"></label></p>
-			
-			<p><label>Master Password: <input disabled name=masterpassword required type=password placeholder=Password></label></p>
-			
-			<p><label>MPW Version: <input disabled name=version required type=number min=0 max=3 value=3></label></p>
-			
-			<p><button disabled name=calculatekey>Calculate key</button></p>
+			<p><label>Master Password: <input disabled name=master-password required type=password placeholder=Password></label></p>
+						
 		</div>
 		
 		<div class=site>
 			<h2>Site</h2>
 			
-			<p><label>Site: <input disabled name=site required placeholder=example.com></label></p>
+			<p><label>Domain: <input disabled name=domain required placeholder=example.com></label></p>
 			
-			<!--<p><label>Counter: <input disabled name=counter required type=number min=1 max=4294967295 value=1></label></p>-->
-			<p><label>Counter: <input disabled name=counter required type=number min=1 max=2147483647 value=1></label></p>
+			<p><label>Security Question: <input disabled name=security-question></label></p>
+
+            <p><label>
+				Type:
+				<select disabled name=type required>
+					<option value=maximum-password>Maximum Password</option>
+                    <option value=long-password selected>Long Password</option>
+					<option value=medium-password>Medium Password</option>
+					<option value=basic-password>Basic Password</option>
+					<option value=short-password>Short Password</option>
+					<option value=pin>PIN</option>
+					<option value=login>Username</option>
+					<option value=answer>Security Answer</option>
+				</select>
+			</label></p>        
+            			
+			<p><label>User name: <input disabled name=user-name></label></p>
 			
-			<p><label>Context: <input disabled name=context></label></p>
-			
-			<p><label>
+			<!--<p><label>
 				Template:
 				<select disabled name=template required>
 					<option value=maximum>Maximum</option>
@@ -59,13 +71,16 @@
 					<option value=password selected>Password</option>
 					<option value=answer>Security Answer</option>
 				</select>
-			</label></p>
-		</div>
+			</label></p>-->
+
+        </div>
 		
 		<div class=result>
-			<h2>Generated <span class=resulttype>Password</span></h2>
+			<h2>Generated <span class=result-type>Password</span></h2>
+            
+            <p><button disabled name=generate-password>Generate Password</button></p>
 			
-			<p><label>Password: <input disabled class=password readonly placeholder=Password></label></p>
+			<p><label>Password: <input disabled class=password readonly></label></p>
 			
 			<p>Error: <code class=error><noscript>You must have JavaScript enabled for this page to work.</noscript></code></p>
 		</div>
@@ -183,8 +198,8 @@ Percival and licensed as follows:
 	// If Web Crypto API is not supported we include a JS crypto library
 	// https://code.google.com/p/crypto-js/
 	if (!window.crypto.subtle) {
-		document.write("<script src=https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js><\/script>");
-		document.write("<script src=https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/lib-typedarrays-min.js><\/script>");
+		document.write("<script src=hmac-sha256.js><\/script>");
+		document.write("<script src=lib-typedarrays-min.js><\/script>");
 	}
 	
 	// If your borwser needs a lot of polyfills consider upgrading
