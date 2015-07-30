@@ -9,6 +9,8 @@
 		 visit http://creativecommons.org/licenses/by/4.0/ or see LICENSE. -->
 	<title>PassGen</title>
 	<link rel=stylesheet href=style.css>
+    <link rel="stylesheet" href="material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
 	<header class=page-header>
@@ -50,36 +52,18 @@
             			
 			<p><label>User name: <input disabled name=user-name></label></p>
 			
-			<!--<p><label>
-				Template:
-				<select disabled name=template required>
-					<option value=maximum>Maximum</option>
-					<option value=long selected>Long</option>
-					<option value=medium>Medium</option>
-					<option value=basic>Basic</option>
-					<option value=short>Short</option>
-					<option value=pin>PIN</option>
-					<option value=name>Name</option>
-					<option value=phrase>Phrase</option>
-				</select>
-			</label></p>
-			
-			<p><label>
-				Type:
-				<select disabled name=type required>
-					<option value=login>Username</option>
-					<option value=password selected>Password</option>
-					<option value=answer>Security Answer</option>
-				</select>
-			</label></p>-->
-
+	        <!--<p><button disabled name=generate-password>Generate Password</button></p>-->
+	
+            <p><button disabled name=generate-password class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Generate Password
+            </button></p>
+            
         </div>
 		
 		<div class=result>
 			<h2>Generated <span class=result-type>Password</span></h2>
             
-            <p><button disabled name=generate-password>Generate Password</button></p>
-			
+    		
 			<p><label>Password: <input disabled class=password readonly></label></p>
 			
 			<p>Error: <code class=error><noscript>You must have JavaScript enabled for this page to work.</noscript></code></p>
@@ -155,6 +139,8 @@ Percival and licensed as follows:
 > SUCH DAMAGE.</pre>
 	</footer>
 	
+    
+    <script src="material.min.js"></script>
 	<script>
 	// Test for required ES6 features
 	// This test must be in a seperate script tag as they are
