@@ -1,4 +1,11 @@
 
+@font-face {
+  font-family: "And Black";
+  src: url("myfont-webfont.eot?#iefix") format('embedded-opentype'),
+       url("fonts/and_black.woff") format('woff'),
+       url("fonts/and_black.ttf") format('truetype');
+}
+
 html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
   margin: 0;
@@ -8,6 +15,22 @@ html, body {
     border: none;
     color: white;
     font-size: 1px;
+}
+
+.page-title {
+    font-family: 'And Black', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 300;
+    font-size: 40px;
+    text-align: left;
+    margin-left: calc(50% - 200px);
+}
+
+.mdl-menu {
+    
+}
+
+.mdl-card {
+    width: 512px;
 }
 
 .mdl-layout__header-row {
@@ -57,19 +80,19 @@ main > .mdl-layout__tab-panel {
   height: auto;
 }
 .mdl-card .mdl-card__supporting-text {
-  margin: 40px;
+  margin: 20px;
   flex-grow: 1;
   padding: 0;
   color: inherit;
   width: calc(100% - 80px);
 }
-.mdl-demo.mdl-card__supporting-text h4 {
+.mdl-card__supporting-text h4 {
   margin-top: 0;
   margin-bottom: 20px;
 }
 .mdl-card__actions {
   margin: 0;
-  padding: 4px;
+  padding: 0px;
   color: inherit;
 }
 .mdl-card__actions a {
@@ -93,7 +116,7 @@ main > .mdl-layout__tab-panel {
 
 .mdl-layout__content section:not(:last-of-type) {
   position: relative;
-  margin-bottom: 48px;
+  margin-bottom: 36px;
 }
 section.section--center {
   max-width: 860px;
@@ -133,7 +156,7 @@ section .section__text {
 section .section__text h5 {
   font-size: inherit;
   margin: 0;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
 }
 section .section__text a {
   text-decoration: none;
@@ -164,7 +187,7 @@ section.section--center .section__text:not(:last-child) {
   border-bottom: 1px solid rgba(0,0,0,.13);
 }
 .mdl-card .mdl-card__supporting-text > h3:first-child {
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 .mdl-layout__tab-panel:not(#overview) {
   background-color: white;

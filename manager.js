@@ -6,7 +6,7 @@ http://creativecommons.org/licenses/by/4.0/ or see LICENSE. */
 /*global MPW, document, window, console */
 
 //Variables for UI element
-var mpw, givenName, familyName, masterPassword, domainName, securityQuestion, userName, type, resultType, generatePassword, password, passwordCard, copyPassword, passwordSel;
+var mpw, givenName, familyName, masterPassword, domainName, securityQuestion, securityQuestionDiv, userName, userNameDiv, type, resultType, generatePassword, password, passwordCard, copyPassword, passwordSel;
 
 //Variable for calculations
 var mpw, templateType, passwordType, fullName, error, id = 0;
@@ -15,7 +15,7 @@ var mpw, templateType, passwordType, fullName, error, id = 0;
 var COUNTER = 1, VERSION = 3;
 
 function clearPassword() {
-    hidePasswordCard();
+    hideElement(passwordCard);
     password.textContent = "";
 }
 
@@ -39,12 +39,12 @@ function updateMPW() {
     } );
 }
 
-function showPasswordCard() {
-    passwordCard.classList.remove("hidden");
+function showElement(element) {
+    element.classList.remove("hidden");
 }
 
-function hidePasswordCard() {
-    passwordCard.classList.add("hidden");
+function hideElement(element) {
+    element.classList.add("hidden");
 }
 
 function updatePassword() {
@@ -71,7 +71,7 @@ function updatePassword() {
 	var cid = ++id;
     var value;
 	
-    showPasswordCard();
+    showElement(passwordCard);
     
 	if (type.value === "answer") {
 		value = mpw.generateAnswer(calculatedDomainName, COUNTER, securityQuestion, templateType);
@@ -93,50 +93,61 @@ function updatePassword() {
 	});
 }
 
-function updateType() {
-    generatePassword.textContent = "Generate Password";
-    copyPassword.textContent = "Copy Password";
-	
-	securityQuestion.disabled = type.value !== "answer";
+function chooseType() {
+    setType(this.id);
+}
 
-	switch (type.value) {
+function setType(passwordSelection) {
+    copyPassword.textContent = "Copy Password";
+	showElement(userNameDiv);
+    hideElement(securityQuestionDiv);
+    
+
+	switch (passwordSelection) {
 		case "login":
 			passwordType = "Login";
             templateType = "name";            
             generatePassword.textContent = "Generate User name";
             copyPassword.textContent = "Copy User name";
+            hideElement(userNameDiv);
 			break;
 		case "maximum-password":
+            generatePassword.textContent = "Generate Maximum Password";
             passwordType = "Password";
 			templateType = "maximum";
 			break;
 		case "long-password":
+            generatePassword.textContent = "Generate Long Password";
             passwordType = "Password";
 			templateType = "long";
 			break;
 		case "medium-password":
+            generatePassword.textContent = "Generate Medium Password";
             passwordType = "Password";
 			templateType = "medium";
 			break;
 		case "basic-password":
+            generatePassword.textContent = "Generate Basic Password";
             passwordType = "Password";
 			templateType = "basic";
 			break;
 		case "short-password":
+            generatePassword.textContent = "Generate Short Password";
             passwordType = "Password";
 			templateType = "short";
 			break;
 		case "pin":
-            passwordType = "Password";
-			templateType = "pin";
             generatePassword.textContent = "Generate PIN";
 			copyPassword.textContent = "Copy PIN";
+            passwordType = "Password";
+			templateType = "pin";
 			break;
 		case "answer":
-            passwordType = "Answer";
-			templateType = "phrase";
             generatePassword.textContent = "Generate Security Answer";
 			copyPassword.textContent = "Copy Security Answer";
+            passwordType = "Answer";
+			templateType = "phrase";
+            showElement(securityQuestionDiv);
 			break;
 	}
 	
@@ -157,7 +168,9 @@ window.addEventListener("load", function () {
     generatePassword = document.querySelector("[id=generate-password]");
 	domainName = document.querySelector("[id=domain]");
     securityQuestion = document.querySelector("[id=security-question]");
+    securityQuestionDiv = document.querySelector("[id=security-question-div]");
     userName = document.querySelector("[id=user-name]");
+    userNameDiv = document.querySelector("[id=user-name-div]");
 	type = document.querySelector("[id=type]");
 	passwordCard = document.querySelector("[id=password-card]");
     password  = document.querySelector(".password");
@@ -177,10 +190,14 @@ window.addEventListener("load", function () {
     securityQuestion.addEventListener("input", clearPassword, false);
 	domainName.addEventListener("input", clearPassword, false);
     userName.addEventListener("input", clearPassword, false);
-	type.addEventListener("change", clearPassword, false);
 	
-	updateType();
-	type.addEventListener("change", updateType, false);
+    //Loop through different values and add a listener
+    for(var lCounter =0; lCounter < type.children.length; lCounter++) {
+        type.children[lCounter].addEventListener("click",chooseType,false);
+    }
+        
+    //Set initial type
+	setType("long-password");
 	generatePassword.addEventListener("click", updatePassword, false);
     copyPassword.addEventListener("click", copyPasswordToClpiboard, false);
 
