@@ -3,13 +3,13 @@
 International License. To view a copy of this license, visit
 http://creativecommons.org/licenses/by/4.0/ or see LICENSE. */
 
-/*global MPW, document, window, console */
+/*global MPW, document, window, console, navigator */
 
 //Variables for UI element
-var mpw, givenName, familyName, masterPassword, domainName, securityQuestion, securityQuestionDiv, userName, userNameDiv, type, resultType, generatePassword, password, passwordCard, copyPassword, passwordSel;
+var mpw, givenName, familyName, masterPassword, domainName, securityQuestion, securityQuestionDiv, userName, userNameDiv, type, resultType, generatePassword, password, passwordCard, copyPasswordDiv, loaderDetails, loaderPassword, closePassword, copyPassword, passwordSel, hasKey;
 
 //Variable for calculations
-var mpw, templateType, passwordType, fullName, error, id = 0;
+var mpw, templateType, passwordType, fullName, isChrome, error, id = 0;
 
 //Constants - not using counter and using a set version of the algorithm
 var COUNTER = 1, VERSION = 3;
@@ -17,26 +17,36 @@ var COUNTER = 1, VERSION = 3;
 function clearPassword() {
     hideElement(passwordCard);
     password.textContent = "";
+    clearClipboard();
+    setPasswordButton();
 }
 
 function updateMPW() {
-	error.textContent = password.textContent = "";
-	
-    generatePassword.disabled = true;
+	showElement(loaderDetails);
+    error.textContent = password.textContent = "";
+	    
+    hasKey = false;
+    setPasswordButton();
     
     fullName = givenName.value + familyName.value;
     
-	if (fullName ===''||
-		!masterPassword.value ) {
-		mpw = null;
+	if (fullName ==='' || !masterPassword.value ) {
+		hideElement(loaderDetails);
+        mpw = null;
         return; 
 	}
 	
 	mpw = new MPW(fullName, masterPassword.value, VERSION);
 	
 	mpw.key.then(function() {
-        generatePassword.disabled = false;
+        hasKey = true;
+        setPasswordButton();
     } );
+}
+
+function setPasswordButton(){
+    generatePassword.disabled = ! (hasKey && domainName.value!=="");
+    hideElement(loaderDetails);
 }
 
 function showElement(element) {
@@ -47,7 +57,29 @@ function hideElement(element) {
     element.classList.add("hidden");
 }
 
+function clearClipboard() {
+    if(isChrome) {
+        var focusedElement = document.activeElement;
+        passwordSel.value = "Move along.  Nothing to see here.";
+        passwordSel.select();
+        document.execCommand("Copy", false, null);
+        focusedElement.focus();        
+    }
+}
+
+function copyPasswordToClipboard() {
+    if(isChrome) {
+        passwordSel.focus();
+        passwordSel.select();
+        document.execCommand("Copy", false, null);
+        copyPassword.focus();
+    }
+}
+
+
 function updatePassword() {
+    showElement(loaderPassword);
+    
 	error.textContent = password.textContent = "";
 	
     var calculatedDomainName, posWWW;
@@ -65,7 +97,8 @@ function updatePassword() {
     }
     
 	if (!mpw || calculatedDomainName==='' || templateType==='' || passwordType==='') {
-		return;
+		hideElement(loaderPassword);
+        return;
 	}
 	
 	var cid = ++id;
@@ -83,8 +116,10 @@ function updatePassword() {
 		if (cid === id) {
             password.textContent = pass;
             passwordSel.value = pass;
+            hideElement(loaderPassword);
 		}
 	}, function (err) {
+        hideElement(loaderPassword);
 		if (cid === id) {
 			error.textContent = err.message;
 		}
@@ -154,14 +189,9 @@ function setType(passwordSelection) {
 	updatePassword();
 }
 
-function copyPasswordToClpiboard() {
-    passwordSel.focus();
-    passwordSel.select();
-    document.execCommand("Copy", false, null);
-    copyPassword.focus();
-}
-
 window.addEventListener("load", function () {
+    hasKey = false;
+    
 	givenName = document.querySelector("[id=given-name]");
     familyName = document.querySelector("[id=family-name]");
 	masterPassword = document.querySelector("[id=master-password]");
@@ -177,6 +207,10 @@ window.addEventListener("load", function () {
 	error = document.querySelector(".error");
 	passwordSel = document.querySelector("[id=password-select]");
 	copyPassword = document.querySelector("[id=copy-password]");
+	copyPasswordDiv = document.querySelector("[id=copy-password-div]");    
+    loaderDetails = document.querySelector("[id=load-bar-details]");
+    loaderPassword = document.querySelector("[id=load-bar-ball]");
+    closePassword = document.querySelector("[id=close-password]");
 	
 	givenName.disabled = familyName.disabled = masterPassword.disabled = domainName.disabled = userName.disabled = type.disabled = false;
 	
@@ -196,14 +230,27 @@ window.addEventListener("load", function () {
         type.children[lCounter].addEventListener("click",chooseType,false);
     }
         
+    //Check if Chrome browser
+    if(navigator.userAgent.indexOf("Chrome")!==-1) {
+        isChrome = true;    
+        showElement(copyPasswordDiv);
+    } else {
+        isChrome = false;    
+    }
+    
+    
     //Set initial type
 	setType("long-password");
 	generatePassword.addEventListener("click", updatePassword, false);
-    copyPassword.addEventListener("click", copyPasswordToClpiboard, false);
+    copyPassword.addEventListener("click", copyPasswordToClipboard, false);
+    closePassword.addEventListener("click", clearPassword, false);
 
     
 	MPW.test().catch(function (err) {
 		console.error(err);
 		error.textContent = err.toString();
 	});
+    
+    givenName.focus();
+    
 }, false);

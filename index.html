@@ -35,81 +35,28 @@
 
 <body class="mdl-color--grey-200 mdl-base">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="mdl-layout__header mdl-layout__header--waterfall mdl-color--primary">
-            <div class="mdl-layout__header-row">
-                        <div class="page-title">pass&nbsp;out</div>
+        <header class="mdl-layout__header mdl-layout__header--waterfall mdl-color--white mdl-shadow--2dp">
+            <div class="mdl-layout__header-row mdl-color-text--primary ">
+                <div class="page-title">pass&nbsp;out</div>
             </div>
         </header>
         <main class="mdl-layout__content">
             <div class="page-content mdl-color--grey-100">
 
                 <section class="section--center mdl-grid password-grid">
-                    <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                     <div class="mdl-card mdl-cell mdl-cell--6-col mdl-shadow--2dp">
 
-                        <div class="mdl-layout__content mdl-card__supporting-text">
-                            <h5>Key Details</h5>
-
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="given-name" />
-                                <label class="mdl-textfield__label" for="given-name">Given name</label>
+                        <div class="mdl-color--primary mdl-color-text--white">
+                            <div class="header-circle mdl-color--teal-600">
+                                <i class="material-icons circle-icon">vpn_key</i>
                             </div>
-                            <br>
-
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="family-name" />
-                                <label class="mdl-textfield__label" for="family-name">Family name</label>
-                            </div>
-                            <br>
-
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="password" id="master-password" />
-                                <label class="mdl-textfield__label" for="master-password">Pass phrase</label>
-                            </div>
-
-                            <h5>Site</h5>
-
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="domain" />
-                                <label class="mdl-textfield__label" for="domain">Web site</label>
-                            </div>
-                            <br>
-
-                            <div id="user-name-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="password" id="user-name" />
-                                <label class="mdl-textfield__label" for="user-name">Website user name (optional)</label>
-                            </div>
-                            <br>
-
-                            <div id="security-question-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden">
-                                <input class="mdl-textfield__input" type="text" id="security-question" />
-                                <label class="mdl-textfield__label" for="security-question">Security question</label>
-                            </div>
-                            <p></p>
-
-
-                            <p>
-                                <select disabled id=type2 class="hidden" required>
-                                    <option value=maximum-password>Maximum Password</option>
-                                    <option value=long-password selected>Long Password</option>
-                                    <option value=medium-password>Medium Password</option>
-                                    <option value=basic-password>Basic Password</option>
-                                    <option value=short-password>Short Password</option>
-                                    <option value=pin>PIN</option>
-                                    <option value=login>Username</option>
-                                    <option value=answer>Security Answer</option>
-                                </select>
-
-                            </p>
-
-                            <div class="mdl-card__actions">
-                                <button id="generate-password" class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect">
-                                    Generate Long Password
-                                </button>
-                                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon align-right" id="password-options">
+                            <h5>Password Details</h5>
+                            <div class="header-upper-right">
+                                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-button-accent mdl-color-text--white icon-uper-right" id="password-options">
                                     <i class="material-icons">more_vert</i>
                                 </button>
-                                <ul id="type" class="mdl-menu mdl-js-menu mdl-menu--top-right" for="password-options">
+
+                                <ul id="type" class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="password-options">
                                     <li id="maximum-password" class="mdl-menu__item">Maximum Password</li>
                                     <li id="long-password" class="mdl-menu__item">Long Password</li>
                                     <li id="medium-password" class="mdl-menu__item">Medium Password</li>
@@ -118,26 +65,91 @@
                                     <li id="pin" class="mdl-menu__item">PIN</li>
                                     <li id="login" class="mdl-menu__item">User name</li>
                                     <li id="answer" class="mdl-menu__item">Security Answer</li>
-
                                 </ul>
+                            </div>
+                        </div>
 
+
+                        <div class="mdl-layout__content mdl-card__supporting-text">
+                            <div id="load-bar-details" class="loader hidden"></div>
+
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-full-width">
+                                <input class="mdl-textfield__input" type="text" id="given-name" />
+                                <label class="mdl-textfield__label" for="given-name">Given name</label>
+                            </div>
+                            <br>
+
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-full-width">
+                                <input class="mdl-textfield__input" type="text" id="family-name" />
+                                <label class="mdl-textfield__label" for="family-name">Family name</label>
+                            </div>
+                            <br>
+
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-full-width">
+                                <input class="mdl-textfield__input" type="password" id="master-password" />
+                                <!--<textarea class="mdl-textfield__input" type="password" rows="2" id="master-password"></textarea>-->
+                                <label class="mdl-textfield__label" for="master-password">Pass phrase</label>
+                            </div>
+
+
+
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-full-width">
+                                <input class="mdl-textfield__input" type="text" id="domain" />
+                                <label class="mdl-textfield__label" for="domain">Web site</label>
+                            </div>
+                            <br>
+
+                            <div id="user-name-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-full-width">
+                                <input class="mdl-textfield__input" type="password" id="user-name" />
+                                <label class="mdl-textfield__label" for="user-name">Website user name (optional)</label>
+                            </div>
+                            <br>
+                            <p id="extra-vertical-space" class="hidden"></p>
+
+                            <div id="security-question-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label  textfield-full-width hidden">
+                                <input class="mdl-textfield__input" type="text" id="security-question" />
+                                <label class="mdl-textfield__label" for="security-question">Security question</label>
+                            </div>
+
+                            <input id="password-select" class="clipboard-field" />
+
+                        </div>
+
+                        <div class="mdl-card__actions">
+                            <div class="mdl-card__supporting-text">
+                                <button id="generate-password" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">
+                                    Generate Long Password
+                                </button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                    <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
 
-                    <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-                    <div id="password-card" class="mdl-card mdl-cell mdl-cell--6-col mdl-shadow--2dp hidden">
-
-                        <div class="mdl-layout__content mdl-card__supporting-text">
-                            <div class="mdl-card__actions">
-                                <h5 class="mdl-text-color--teal-700"><span class="password"></span></h5>
-                                <p><code class=error><noscript>You must have JavaScript enabled for this page to work.</noscript></code></p>
-                                <input id="password-select" class="clipboard-field" />
-
+                    <div id="password-card" class="mdl-card mdl-cell mdl-cell--middle mdl-cell--6-col mdl-shadow--2dp hidden">
+                        <div class="mdl-color--primary mdl-color-text--white">
+                            <div class="header-circle mdl-color--teal-600">
+                                <i class="material-icons circle-icon">verified_user</i>
                             </div>
-                            <div class="mdl-card__actions">
+                            <h5>Your Password</h5>
+                        </div>
+
+                        <button class="close-button-top-right mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-button-accent mdl-color-text--white" id="close-password">
+                            <i class="material-icons">close</i>
+                        </button>
+                        <div class="mdl-layout__content mdl-card__supporting-text">
+                            <div id="load-bar-ball" class="loader-four-balls hidden">
+                                <div class="load-ball"></div>
+                                <div class="load-ball"></div>
+                                <div class="load-ball"></div>
+                                <div class="load-ball"></div>
+                            </div>
+                            <!--<div id="load-bar-password" class="loader hidden"></div>-->
+                            <div class="mdl-text-color--teal-700">
+                                <span class="password"></span>
+                            </div>
+                            <div><code class=error><noscript>You must have JavaScript enabled for this page to work.</noscript></code></div>
+                            <div id="copy-password-div" class="mdl-card__actions hidden">
                                 <button id="copy-password" class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect">
                                     Copy Password
                                 </button>
@@ -154,79 +166,79 @@
 
 
         </main>
-        </div>
+    </div>
 
 
-        <script src="material.min.js"></script>
-        <script>
-            // Test for required ES6 features
-            // This test must be in a seperate script tag as they are
-            // language features and ES5 parsers will hard-fail otherwise
+    <script src="material.min.js"></script>
+    <script>
+        // Test for required ES6 features
+        // This test must be in a seperate script tag as they are
+        // language features and ES5 parsers will hard-fail otherwise
 
-            // If the ES6 class, let, destructive assignment and rest arguments
-            // are supported, this will be successful and ES6 will be set to true
-            // and suffix to ".js"
+        // If the ES6 class, let, destructive assignment and rest arguments
+        // are supported, this will be successful and ES6 will be set to true
+        // and suffix to ".js"
 
-            class $ES6 {
-                constructor() {
-                    let b = true;
-                    this.b = b;
-                }
+        class $ES6 {
+            constructor() {
+                let b = true;
+                this.b = b;
             }
-            const [ES6, esdir] = ((...args) => args)(new $ES6().b, ``);
+        }
+        const [ES6, esdir] = ((...args) => args)(new $ES6().b, ``);
 
-        </script>
-        <script>
-            // If the needed ES6 features aren't supported, ES6 will be set to false
-            // and suffix to ".es5.js"
-            var ES6 = false,
-                esdir = "es5/";
+    </script>
+    <script>
+        // If the needed ES6 features aren't supported, ES6 will be set to false
+        // and suffix to ".es5.js"
+        var ES6 = false,
+            esdir = "es5/";
 
-            // If ES6 is not supported we must include traceur-runtime.js
-            ES6 || document.write("<script src=lib/traceur-runtime.js><\/script>");
+        // If ES6 is not supported we must include traceur-runtime.js
+        ES6 || document.write("<script src=lib/traceur-runtime.js><\/script>");
 
-            // If setImmediate is not implemented we include the polyfill
-            window.setImmediate || document.write("<script src=" + esdir + "setImmediate-polyfill.js><\/script>");
+        // If setImmediate is not implemented we include the polyfill
+        window.setImmediate || document.write("<script src=" + esdir + "setImmediate-polyfill.js><\/script>");
 
-            // If Typed Arrays are not supported we include the polyfill
-            // https://github.com/inexorabletash/polyfill
-            window.ArrayBuffer || document.write("<script src=typedarray-polyfill.js><\/script>");
+        // If Typed Arrays are not supported we include the polyfill
+        // https://github.com/inexorabletash/polyfill
+        window.ArrayBuffer || document.write("<script src=typedarray-polyfill.js><\/script>");
 
-            // If TextEncoder is not supported we include the polyfill
-            // https://github.com/inexorabletash/text-encoding
-            window.TextEncoder || document.write("<script src=encoding-polyfill.js><\/script>");
+        // If TextEncoder is not supported we include the polyfill
+        // https://github.com/inexorabletash/text-encoding
+        window.TextEncoder || document.write("<script src=encoding-polyfill.js><\/script>");
 
-            // If Promise is not supported we include the polyfill
-            // https://github.com/taylorhakes/promise-polyfill
-            window.Promise || document.write("<script src=promise-polyfill.js><\/script>");
+        // If Promise is not supported we include the polyfill
+        // https://github.com/taylorhakes/promise-polyfill
+        window.Promise || document.write("<script src=promise-polyfill.js><\/script>");
 
-            // Alias window.crypto.subtle with window.crypto.webkitSubtle if
-            // the latter but not the former is supported
-            if (!window.crypto.subtle && window.crypto.webkitSubtle) {
-                window.crypto.subtle = window.crypto.webkitSubtle;
-            }
+        // Alias window.crypto.subtle with window.crypto.webkitSubtle if
+        // the latter but not the former is supported
+        if (!window.crypto.subtle && window.crypto.webkitSubtle) {
+            window.crypto.subtle = window.crypto.webkitSubtle;
+        }
 
-            // If Web Crypto API is not supported we include a JS crypto library
-            // https://code.google.com/p/crypto-js/
-            if (!window.crypto.subtle) {
-                document.write("<script src=hmac-sha256.js><\/script>");
-                document.write("<script src=lib-typedarrays-min.js><\/script>");
-            }
+        // If Web Crypto API is not supported we include a JS crypto library
+        // https://code.google.com/p/crypto-js/
+        if (!window.crypto.subtle) {
+            document.write("<script src=hmac-sha256.js><\/script>");
+            document.write("<script src=lib-typedarrays-min.js><\/script>");
+        }
 
-            // If your borwser needs a lot of polyfills consider upgrading
-            // to a more modern feature rich browser, if you are a browser
-            // developer considering adding these much needed features already!
-            // :D
+        // If your borwser needs a lot of polyfills consider upgrading
+        // to a more modern feature rich browser, if you are a browser
+        // developer considering adding these much needed features already!
+        // :D
 
-            // Include the scrypt implementation
-            var SCRYPTASM_PATH = (window.location + '').replace(/\/index.html$/i, '/') + "lib/scrypt-asm.js";
-            document.write("<script src=lib/" + esdir + "scrypt.js><\/script>");
+        // Include the scrypt implementation
+        var SCRYPTASM_PATH = (window.location + '').replace(/\/index.html$/i, '/') + "lib/scrypt-asm.js";
+        document.write("<script src=lib/" + esdir + "scrypt.js><\/script>");
 
-            // Include the MPW class
-            document.write("<script src=lib/" + esdir + "mpw.js><\/script>");
+        // Include the MPW class
+        document.write("<script src=lib/" + esdir + "mpw.js><\/script>");
 
-        </script>
-        <script src=manager.js></script>
+    </script>
+    <script src=manager.js></script>
 </body>
 
 </html>
